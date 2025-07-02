@@ -14,6 +14,7 @@ public class LoginPage {
     private final By loginButton = By.xpath("//button[text()='Войти']");
     private final By registerLink = By.xpath("//a[text()='Зарегистрироваться']");
     private final By forgotPasswordLink = By.xpath("//a[text()='Восстановить пароль']");
+    private final By errorMessage = By.xpath("//p[contains(@class, 'input__error')]");
     private final By loginFormTitle = By.xpath("//h2[text()='Вход']");
 
     public LoginPage(WebDriver driver, WebDriverWait wait) {
@@ -44,6 +45,19 @@ public class LoginPage {
     public ForgotPasswordPage clickForgotPasswordLink() {
         wait.until(ExpectedConditions.elementToBeClickable(forgotPasswordLink)).click();
         return new ForgotPasswordPage(driver, wait);
+    }
+
+    public LoginPage clickLoginButtonWithError() {
+        wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+        return this;
+    }
+
+    public boolean isErrorDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean isLoginFormVisible() {

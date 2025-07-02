@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 public class MainPage {
     private final WebDriver driver;
     private final WebDriverWait wait;
@@ -13,9 +12,11 @@ public class MainPage {
     private final By loginButton = By.xpath("//button[text()='Войти в аккаунт']");
     private final By personalAccountButton = By.xpath("//p[text()='Личный Кабинет']");
     private final By orderButton = By.xpath("//button[contains(text(), 'Оформить заказ')]");
+
     private final By bunsSection = By.xpath("//span[text()='Булки']/parent::div");
     private final By saucesSection = By.xpath("//span[text()='Соусы']/parent::div");
     private final By fillingsSection = By.xpath("//span[text()='Начинки']/parent::div");
+
     private final By activeTab = By.xpath("//div[contains(@class, 'tab_tab_type_current')]");
 
     public MainPage(WebDriver driver, WebDriverWait wait) {
@@ -40,11 +41,7 @@ public class MainPage {
     }
 
     public boolean isOrderButtonVisible() {
-        try {
-            return wait.until(ExpectedConditions.visibilityOfElementLocated(orderButton)).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(orderButton)).isDisplayed();
     }
 
     public MainPage clickBunsSection() {
@@ -63,17 +60,19 @@ public class MainPage {
     }
 
     public boolean isBunsSectionActive() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(activeTab))
-                .findElement(By.xpath(".//span")).getText().equals("Булки");
+        return isSectionActive("Булки");
     }
 
     public boolean isSaucesSectionActive() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(activeTab))
-                .findElement(By.xpath(".//span")).getText().equals("Соусы");
+        return isSectionActive("Соусы");
     }
 
     public boolean isFillingsSectionActive() {
+        return isSectionActive("Начинки");
+    }
+
+    private boolean isSectionActive(String sectionName) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(activeTab))
-                .findElement(By.xpath(".//span")).getText().equals("Начинки");
+                .findElement(By.xpath(".//span")).getText().equals(sectionName);
     }
 }
