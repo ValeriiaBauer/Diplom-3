@@ -21,7 +21,7 @@ public class DriverFactory {
     }
 
     private static WebDriver setupYandexDriver(ChromeOptions options) {
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/yandexdriver");
+        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
         options.setBinary("/Applications/Yandex.app/Contents/MacOS/Yandex");
         return new ChromeDriver(options);
     }

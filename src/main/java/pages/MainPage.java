@@ -18,6 +18,7 @@ public class MainPage {
     private final By fillingsSection = By.xpath("//span[text()='Начинки']/parent::div");
 
     private final By activeTab = By.xpath("//div[contains(@class, 'tab_tab_type_current')]");
+    private final By activeTabSpan = By.xpath(".//span");
 
     public MainPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -73,6 +74,6 @@ public class MainPage {
 
     private boolean isSectionActive(String sectionName) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(activeTab))
-                .findElement(By.xpath(".//span")).getText().equals(sectionName);
+                .findElement(activeTabSpan).getText().equals(sectionName);
     }
 }
